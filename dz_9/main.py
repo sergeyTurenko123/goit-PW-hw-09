@@ -42,7 +42,7 @@ def authors():
             for author in authors:
                 fullname = author.find('small', class_='author').text
                 link = author.find("a")
-                url2 = f'http://quotes.toscrape.com{link['href']}'
+                url2 = f"http://quotes.toscrape.com{link['href']}"
                 html_doc = requests.get(url2)
                 soup= BeautifulSoup(html_doc.content, 'html.parser')
                 texts= soup.find_all('div', class_="author-details")

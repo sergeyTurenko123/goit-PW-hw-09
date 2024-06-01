@@ -1,7 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from sqlalchemy.engine import create_engine
-from sqlalchemy.orm import sessionmaker
 import json
 from model import Authors, Quotes
 from mongoengine import connect
@@ -24,6 +22,8 @@ def quotes():
                     'author': author,
                     'quote': quote
                 })
+    with open('quotes.json', 'w', encoding='utf-8') as f:
+        json.dump(store_, f)
     return store_
 
 def authors():
@@ -51,18 +51,11 @@ def authors():
                         'born_location': born_location,
                         'description': description
                         })
+    with open('authors.json', 'w', encoding='utf-8') as f:
+        json.dump(store_, f)
     return store_
 
-
-
-
-if __name__ == '__main__':
-    store = quotes()
-    with open('quotes.json', 'w', encoding='utf-8') as f:
-        json.dump(store, f)
-    author = authors()
-    with open('authors.json', 'w', encoding='utf-8') as f:
-        json.dump(author, f)
+def seed():
     config = configparser.ConfigParser()
     connect(host=f"""mongodb+srv://sturenko4:31122014@sturenko4.e02me8x.mongodb.net/base.authors?retryWrites=true&w=majority&appName=sturenko4""", ssl=True)
     with open('authors.json') as f:
@@ -79,3 +72,8 @@ if __name__ == '__main__':
         quote = Quotes(quote=list.get('quote'), tags=list.get('tags'), author=Authors.objects(fullname=list.get('author')).first())
         quote.save()
     
+
+
+if __name__ == '__main__':
+
+    seed()

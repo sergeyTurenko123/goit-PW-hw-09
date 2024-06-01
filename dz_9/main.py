@@ -4,8 +4,10 @@ import json
 from model import Authors, Quotes
 from mongoengine import connect
 import configparser
+import time
 
 def quotes():
+    start = time.time()
     store_ = []
     for i in range(11):
         url = f'http://quotes.toscrape.com/page/{i+1}'
@@ -24,9 +26,12 @@ def quotes():
                 })
     with open('quotes.json', 'w', encoding='utf-8') as f:
         json.dump(store_, f)
+    end = time.time() - start 
+    print(end)
     return store_
 
 def authors():
+    start = time.time()
     store_ = []
     for i in range(11):
         url = f'http://quotes.toscrape.com/page/{i+1}'
@@ -53,9 +58,12 @@ def authors():
                         })
     with open('authors.json', 'w', encoding='utf-8') as f:
         json.dump(store_, f)
+    end = time.time() - start 
+    print(end)
     return store_
 
 def seed():
+    start = time.time()
     config = configparser.ConfigParser()
     connect(host=f"""mongodb+srv://sturenko4:31122014@sturenko4.e02me8x.mongodb.net/base.authors?retryWrites=true&w=majority&appName=sturenko4""", ssl=True)
     with open('authors.json') as f:
@@ -71,7 +79,8 @@ def seed():
     for list in lists:
         quote = Quotes(quote=list.get('quote'), tags=list.get('tags'), author=Authors.objects(fullname=list.get('author')).first())
         quote.save()
-    
+    end = time.time() - start 
+    print(end)
 
 
 if __name__ == '__main__':

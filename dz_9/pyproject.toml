@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "dz-9"
+version = "0.1.0"
+description = ""
+authors = ["sergeyTurenko123 <sergej_petrovich_8484@ukr.net>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+beautifulsoup4 = "^4.12.3"
+requests = "^2.32.3"
+sqlalchemy = "^2.0.30"
+mongoengine = "^0.28.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

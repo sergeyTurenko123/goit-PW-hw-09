@@ -78,16 +78,4 @@ if __name__ == '__main__':
     for list in lists:
         quote = Quotes(quote=list.get('quote'), tags=list.get('tags'), author=Authors.objects(fullname=list.get('author')).first())
         quote.save()
-    # engine = create_engine("qoutes.json")
-    # Quotes.metadata.create_all(engine)
-    # Quotes.metadata.bind = engine
-    # Session = sessionmaker(bind=engine)
-    # session = Session()
-    # for el in store:
-    #     book = Quotes(tags=el.get('tags'), author=el.get('author'), quote=el.get('quote'))
-    #     session.add(book)
-    # session.commit()
-    # books = session.query(Quotes).all()
-    # for b in books:
-    #     print(vars(b))
-    # session.close()
+    
